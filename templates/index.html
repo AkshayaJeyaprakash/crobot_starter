@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <script>window.jQuery || document.write("<script src=\"{{url_for('static', filename='trial.js') }}\">\x3C/script>")</script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/1.1.0/roslib.min.js"></script>
+    <script src="{{ url_for('static', filename='js/trial.js') }}"></script>
+
+    <!-- <script>
+      $(document).ready(function(){
+         $("h1").css("color","red").click(function(){
+              alert("Button clicked!");
+          });
+      });
+    </script> -->
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#ia').on('click', function(e) {
+          e.preventDefault()
+          $.getJSON('/increaseAngularSpeed',
+              function(data) {
+               $('#angular_val').html(data.angular_speed)
+               var message = new ROSLIB.Message({
+                    data: `linear:${data.linear_speed}:angular:${data.angular_speed}`
+                });
+                topic.publish(message);
+          });
+        });
+      });
+    </script>
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#da').on('click', function(e) {
+          e.preventDefault()
+          $.getJSON('/decreaseAngularSpeed',
+              function(data) {
+              $('#angular_val').html(data.angular_speed)
+              var message = new ROSLIB.Message({
+                    data: `linear:${data.linear_speed}:angular:${data.angular_speed}`
+                });
+                topic.publish(message);
+          });
+        });
+      });
+    </script>
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#il').on('click', function(e) {
+          e.preventDefault()
+          $.getJSON('/increaseLinearSpeed',
+              function(data) {
+              $('#linear_val').html(data.linear_speed)
+              var message = new ROSLIB.Message({
+                    data: `linear:${data.linear_speed}:angular:${data.angular_speed}`
+                });
+                topic.publish(message);
+          });
+        });
+      });
+    </script>
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#dl').on('click', function(e) {
+          e.preventDefault()
+          $.getJSON('/decreaseLinearSpeed',
+              function(data) {
+              $('#linear_val').html(data.linear_speed)
+              var message = new ROSLIB.Message({
+                    data: `linear:${data.linear_speed}:angular:${data.angular_speed}`
+                });
+                topic.publish(message);
+          });
+        });
+      });
+    </script>
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#s').on('click', function(e) {
+          e.preventDefault()
+          $.getJSON('/stop',
+              function(data) {
+              $('#linear_val').html(data.linear_speed)
+              $('#angular_val').html(data.angular_speed)
+              message = new ROSLIB.Message({data:"stop"});
+              topic.publish(message);
+          });
+        });
+      });
+    </script>
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#f').on('click', function(e) {
+          e.preventDefault()
+          console.log("forward")
+          message = new ROSLIB.Message({data:"up"});
+          topic.publish(message);
+        });
+      });
+    </script>
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#l').on('click', function(e) {
+          e.preventDefault()
+          console.log("left")
+          message = new ROSLIB.Message({data:"left"});
+          topic.publish(message);
+        });
+      });
+    </script>
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#r').on('click', function(e) {
+          e.preventDefault()
+          console.log("right")
+          message = new ROSLIB.Message({data:"right"});
+          topic.publish(message);
+        });
+      });
+    </script>
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#d').on('click', function(e) {
+          e.preventDefault()
+          console.log("backward")
+          message = new ROSLIB.Message({data:"down"});
+          topic.publish(message);
+        });
+      });
+    </script>
+  
+    
+
+    <title>C-Robot Controller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .direction-pad {
+            display: grid;
+            grid-template-columns: 60px 60px 60px;
+            grid-template-rows: 60px 60px 60px;
+            grid-gap: 10px;
+            margin-bottom: 20px;
+        }
+        .direction-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #008cba;
+            border: none;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .invisible {
+            visibility: hidden;
+        }
+        .speed-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .speed-button {
+            width: 80px;
+            height: 60px;
+            margin: 0 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            color: #333;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .speed-label {
+            text-align: center;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header> 
+      <h1>C-Robot Controller </h1>
+      <h2>🤖🤗 Thank you for choosing crobot 🤗🤖</h2>
+    </header>
+
+    <div class="container">
+        <div class="direction-pad">
+            <div class="invisible"></div>
+            <a href=# id=f><button class="direction-button">&#8593;</button></a>
+            <div class="invisible"></div>
+
+            <a href=# id=l><button class="direction-button">&#8592;</button></a>
+            <a href=# id=s><button class="direction-button">&#215;</button></a>
+            <a href=# id=r><button class="direction-button">&#8594;</button></a>
+
+            <div class="invisible"></div>
+            <a href=# id=d><button class="direction-button">&#8595;</button></a>
+            <div class="invisible"></div>
+        </div>
+        <div class="speed-controls">
+            <div>
+                <a href=# id=il><button class="speed-button">&#8593;</button></a>
+                <p class="speed-label">Linear vel.</p>
+                <p id="linear_val">hi helo</p>
+                <a href=# id=dl><button class="speed-button">&#8595;</button></a>
+            </div>
+            <div>
+                <a href=# id=ia><button class="speed-button">&#8593;</button></a>
+                <p class="speed-label">Angular vel.</p>
+                <p id="angular_val">hi helo</p>
+                <a href=# id=da><button class="speed-button">&#8595;</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div>
+      <img src="http://localhost:8080/stream?topic=/robot_camera/camera/image_raw">
+    </div> 
+</body>
+</html>
+
